@@ -6,7 +6,7 @@ const createProductImageElement = (imageSource) => {
 };
 
 const cartItemClickListener = (event) => {
-  // coloque seu código aqui
+  event.target.remove();
 };
 
 const createCustomElement = (element, className, innerText) => {
