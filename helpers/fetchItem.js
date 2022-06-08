@@ -1,7 +1,7 @@
-const fetchItem = async (parametro) => {
+const fetchItem = async (ItemID) => {
   try {
-    const url = `https://api.mercadolibre.com/items/${parametro}`;
-    const response = await fetch(url);
+    const endPoint = `https://api.mercadolibre.com/items/${ItemID}`;
+    const response = await fetch(endPoint);
     const data = await response.json();
     return data;
     // console.log(data);
@@ -9,7 +9,7 @@ const fetchItem = async (parametro) => {
     return error;
   }
 };
-
+fetchItem('MLB1341706310');
 if (typeof module !== 'undefined') {
   module.exports = {
     fetchItem,
