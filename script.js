@@ -16,13 +16,17 @@ const createCustomElement = (element, className, innerText) => {
   return e;
 };
 
+const items = document.querySelector('.items');
 const productCart = {};
 const ol = document.querySelector('.cart__items');
+
 const createCartItemElement = ({ sku, name, salePrice }) => {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
+  ol.appendChild(li);
+  saveCartItems(ol.innerHTML);
   return li;
 };
 
@@ -48,7 +52,6 @@ const createProductItemElement = ({ id: sku, title: name, thumbnail: image }) =>
 async function getProducts() {
   const data1 = await fetchProducts('computador');
   const products = data1.results;
-  const items = document.querySelector('.items');
   products.forEach((entry) => {
     items.appendChild(createProductItemElement(entry));
   });
@@ -57,12 +60,18 @@ async function getProducts() {
 getProducts();
 
 const clearCart = document.querySelector('.empty-cart');
-      clearCart.addEventListener('click', () => {
-        ol.innerHTML = '';
-        localStorage.clear();
-      });
+clearCart.addEventListener('click', () => {
+  ol.innerHTML = '';
+  localStorage.clear();
+});
+
+function SavedCart() {
+  ol.innerHTML = getSavedCartItems();
+  ol.addEventListener('click', cartItemClickListener);
+}
 
 const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
 
 window.onload = () => {
+  SavedCart();
 };
