@@ -56,8 +56,13 @@ async function getProducts() {
 }
 getProducts();
 
+const clearCart = document.querySelector('.empty-cart');
+      clearCart.addEventListener('click', () => {
+        ol.innerHTML = '';
+        localStorage.clear();
+      });
+
 const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
 
 window.onload = () => {
-
 };
